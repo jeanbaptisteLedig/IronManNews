@@ -6,13 +6,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding class="card-background-page">
-  <p>
-    <ion-list>
-      <button ion-item *ngFor="let item of items | async" (click)="itemSelected(item)">
-        {{ item.city }}
-      </button>
-    </ion-list>
-  </p>
+
 
   <h2>Share your bests mermories with IronMan ! <ion-icon name="camera"></ion-icon></h2>
   <button ion-button full (click)="takePhoto()" >
@@ -30,18 +24,12 @@
     </ion-row>
   </ion-grid>
 
-  <ion-slides slidesPerView="2">
-    <ion-slide>
-      <h1>Slide 1</h1>
-    </ion-slide>
-    <ion-slide>
-      <h1>Slide 2</h1>
-    </ion-slide>
-    <ion-slide>
-      <h1>Slide 3</h1>
-    </ion-slide>
+  <ion-slides slidesPerView="3">
+      <button ion-item *ngFor="let item of items | async" (click)="itemSelected(item)">
+        <ion-slide>
+        {{ item.city }} <br/>
+          <img src="{{item.url_image}}" style="width:230px;height:120px;background-color: black;">
+        </ion-slide>
+      </button>
   </ion-slides>
-
-
-  <div #map id="map"></div>
 </ion-content>

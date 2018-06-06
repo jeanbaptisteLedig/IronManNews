@@ -8,8 +8,6 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { DetailsPage } from './../details/details';
 import {Camera, CameraOptions} from '@ionic-native/camera';
 
-declare var google;
-
 interface Items {
 
 }
@@ -23,14 +21,10 @@ export class HomePage {
   public photos : any;
   public base64Image : string;
 
-  @ViewChild('map') mapContainer: ElementRef;
-
-  map: any;
   itemsCollection: AngularFirestoreCollection<Items>;
   items: Observable<Items[]>;
-  itemsList = [];
 
-  constructor(public navCtrl: NavController, db: AngularFirestore, popoverCtrl: PopoverController, public geolocation: Geolocation, public navParams: NavParams, private camera : Camera, private alertCtrl : AlertController) {
+  constructor(public navCtrl: NavController, db: AngularFirestore, popoverCtrl: PopoverController, public navParams: NavParams, private camera : Camera, private alertCtrl : AlertController) {
     this.itemsCollection = db.collection<Items>('ironman'); //ref()
     this.items=this.itemsCollection.snapshotChanges().map(actions => {
       return actions.map(a => {
@@ -39,8 +33,6 @@ export class HomePage {
         return { id, ...data };
       })
     })
-    this.itemsList = navParams.get('itemList');
-    console.log(this.itemsList);
   }
 
   itemSelected(item){
@@ -54,8 +46,6 @@ export class HomePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MapPage');
-    this.displayGoogleMap();
-    this.getMarkers();
   }
 
   deletePhoto(index) {
@@ -94,30 +84,5 @@ export class HomePage {
     }, (err) => {
       console.log(err);
     });
-  }
-
-  displayGoogleMap() {
-    let latLng = new google.maps.LatLng(28.6117993, 77.2194934);
-
-    let mapOptions = {
-      center: latLng,
-      disableDefaultUI: true,
-      zoom: 4,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
-    this.map = new google.maps.Map(this.mapContainer.nativeElement, mapOptions);
-  }
-
-  getMarkers() {
-    for (let _i = 0; _i < 2; _i++) {
-      if(_i > 0 )
-        this.addMarkersToMap(this.items[_i]);
-    }
-  }
-
-  addMarkersToMap(museum) {
-    var position = new google.maps.LatLng(28.6117993, 77.2194934);
-    var museumMarker = new google.maps.Marker({position: position, title: "test"});
-    museumMarker.setMap(this.map);
   }
 }
