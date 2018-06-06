@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      IronMan 70.3
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding class="card-background-page">
+  <p>
+    <ion-list>
+      <button ion-item *ngFor="let item of items | async" (click)="itemSelected(item)">
+        {{ item.city }}
+      </button>
+    </ion-list>
+  </p>
+
+  <h2>Share your bests mermories with IronMan ! <ion-icon name="camera"></ion-icon></h2>
+  <button ion-button full (click)="takePhoto()" >
+    <ion-icon name="camera"></ion-icon>Take Photo
+  </button>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6 *ngFor="let photo of photos; let id = index">
+        <ion-card class="block">
+          <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
+          <img [src]="photo" *ngIf="photo" />
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-slides slidesPerView="2">
+    <ion-slide>
+      <h1>Slide 1</h1>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 2</h1>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 3</h1>
+    </ion-slide>
+  </ion-slides>
+
+
+  <div #map id="map"></div>
+</ion-content>

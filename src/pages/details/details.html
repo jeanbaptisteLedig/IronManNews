@@ -1,0 +1,25 @@
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-4>
+        <img src="{{item.url_image}}" style="width:230px;height:120px;background-color: black;">
+      </ion-col>
+      <ion-col col-8>
+        <ion-card-title>
+          <h1>{{item.name}}</h1>
+          <h5>{{item.city}} -
+            {{item.country}}</h5>
+          <h5>{{item.date | date: "fullDate"}}</h5>
+        </ion-card-title>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <p style="text-align: justify; ">{{item.description}}</p><br>
+        Plus d'information sur <a href="{{item.url}}">IronMan {{item.city}}</a>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div #map id="map"></div>
+</ion-content>
