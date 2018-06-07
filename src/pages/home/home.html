@@ -1,19 +1,27 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      IronMan 70.3
+    <ion-title *ngIf="auth.getEmail()">
+      <h1>IronMan News</h1>
+        <ion-item (click)="logout()" *ngIf="auth.authenticated">
+          <ion-icon name="log-out" item-left></ion-icon>
+          Log out
+        </ion-item>
+        <ion-item (click)="login()" *ngIf="!auth.authenticated">
+          <ion-icon name="log-in" item-left></ion-icon>
+          Log in
+        </ion-item>
     </ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content padding class="card-background-page">
 
+<ion-content padding class="card-background-page">
   <ion-list ion-item *ngFor="let item of items | async" (click)="itemSelected(item)">
     {{ item.city }}
   </ion-list>
 
-  <h2>Share your bests mermories with IronMan ! <ion-icon name="camera"></ion-icon></h2>
+  <h2>Partagez vos meilleurs souvenir avec IronMan ! <ion-icon name="camera"></ion-icon></h2>
   <button ion-button full (click)="takePhoto()" >
-    <ion-icon name="camera"></ion-icon>Take Photo
+    <ion-icon name="camera"></ion-icon>&nbsp; Prendre une photo
   </button>
 
   <ion-grid>
@@ -26,7 +34,6 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
 
   <ion-list col-6 *ngFor="let photo of photos; let id = index">
     <ion-item-sliding>

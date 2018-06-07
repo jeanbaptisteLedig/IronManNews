@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 import { Geolocation } from '@ionic-native/geolocation';
 import { DetailsPage } from './../details/details';
 import {Camera, CameraOptions} from '@ionic-native/camera';
+import { AuthService } from '../../services/auth.service';
 
 interface Items {
 
@@ -24,7 +25,7 @@ export class HomePage {
   itemsCollection: AngularFirestoreCollection<Items>;
   items: Observable<Items[]>;
 
-  constructor(public navCtrl: NavController, db: AngularFirestore, popoverCtrl: PopoverController, public navParams: NavParams, private camera : Camera, private alertCtrl : AlertController) {
+  constructor(public navCtrl: NavController, db: AngularFirestore, popoverCtrl: PopoverController, public navParams: NavParams, private camera : Camera, private alertCtrl : AlertController, private auth: AuthService) {
     this.itemsCollection = db.collection<Items>('ironman'); //ref()
     this.items=this.itemsCollection.snapshotChanges().map(actions => {
       return actions.map(a => {
@@ -50,16 +51,16 @@ export class HomePage {
 
   deletePhoto(index) {
     let confirm = this.alertCtrl.create({
-      title: 'Sure you want to delete this photo? There is NO undo!',
+      title: 'Etes-vous sur de vouloir supprimer cette photo ???? T SUR ??',
       message: '',
       buttons: [
         {
-          text: 'No',
+          text: 'Non',
           handler: () => {
             console.log('Disagree clicked');
           }
         }, {
-          text: 'Yes',
+          text: 'Oui',
           handler: () => {
             console.log('Agree clicked');
             this.photos.splice(index, 1);
@@ -85,4 +86,16 @@ export class HomePage {
       console.log(err);
     });
   }
+
+    login() {
+        //this.menu.close();
+        this.auth.signOut();
+        //this.nav.setRoot(LoginPage);
+    }
+
+    logout() {
+        //this.menu.close();
+        this.auth.signOut();
+        //this.nav.setRoot(HomePage);
+    }
 }

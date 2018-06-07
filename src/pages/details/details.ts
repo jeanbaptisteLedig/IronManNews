@@ -29,34 +29,40 @@ export class DetailsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailsPage');
-      this.displayGoogleMap();
-      this.getMarkers();
+      this.displayGoogleMap(this.item);
   }
 
-    displayGoogleMap() {
-        let latLng = new google.maps.LatLng(49.0856, 17.8764);
-
+    displayGoogleMap(item) {
+        let latLng = new google.maps.LatLng(item.lat, item.long);
         let mapOptions = {
             center: latLng,
             disableDefaultUI: true,
             zoom: 4,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-        this.map = new google.maps.Map(this.mapContainer.nativeElement, mapOptions);
-    }
-
-    getMarkers() {
-        this.addMarkersToMap(this.item);
-    }
-
-    addMarkersToMap(item) {
+            zoomControl: true,
+            scrollwheel: false,
+            disableDoubleClickZoom: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            infoWindow: "Hello"
+        };
+        var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">'+item.name+'</h1>'+
+            '<div id="bodyContent">'+
+            '<p>Plus d informatations sur <a href='+item.url+'>'+item.name+'</a>'+
+            '</div>'+
+            '</div>';
+        var infowindow = new google.maps.InfoWindow({content: contentString});
         var position = new google.maps.LatLng(item.lat, item.long);
         var itemMarker = new google.maps.Marker({
             position: position,
             title: item.name,
             animation: google.maps.Animation.DROP
         });
+        itemMarker.addListener('click', function() {
+            infowindow.open(mapOptions, itemMarker);
+        });
+        this.map = new google.maps.Map(this.mapContainer.nativeElement, mapOptions);
         itemMarker.setMap(this.map);
     }
-
 }

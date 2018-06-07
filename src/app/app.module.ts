@@ -8,6 +8,8 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { DetailsPage } from '../pages/details/details';
+import { LoginPage } from '../pages/login/login';
+import { SignupPage } from '../pages/signup/signup';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -17,8 +19,9 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import {AngularFireModule} from "angularfire2";
 import { Provider } from '../providers/provider/provider';
 import { Geolocation } from '@ionic-native/geolocation';
-
+import { NgxErrorsModule } from '@ultimate/ngxerrors';
 import {Camera} from '@ionic-native/camera';
+import { AuthService } from '../services/auth.service';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDZTbdxTTcdcTMqqK3Kd5juQVEKe-ctS8U",
@@ -36,14 +39,17 @@ export const firebaseConfig = {
     ContactPage,
     HomePage,
     DetailsPage,
-    TabsPage
+    TabsPage,
+    LoginPage,
+    SignupPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    NgxErrorsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -52,14 +58,17 @@ export const firebaseConfig = {
     ContactPage,
     HomePage,
     DetailsPage,
-    TabsPage
+    TabsPage,
+    LoginPage,
+    SignupPage
   ],
   providers: [
     StatusBar,
     SplashScreen, Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Provider,
-    Geolocation
+    Geolocation,
+    AuthService
   ]
 })
 export class AppModule {}
