@@ -1,12 +1,11 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import {IonicPage, NavController, PopoverController, NavParams, AlertController} from 'ionic-angular';
-import { AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { IonicPage, NavController, PopoverController, NavParams, AlertController } from 'ionic-angular';
+import { AngularFirestoreCollection, AngularFirestoreDocument, AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Geolocation } from '@ionic-native/geolocation';
 import { DetailsPage } from './../details/details';
-import {Camera, CameraOptions} from '@ionic-native/camera';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AuthService } from '../../services/auth.service';
 
 interface Items {
@@ -26,7 +25,7 @@ export class HomePage {
   items: Observable<Items[]>;
 
   constructor(public navCtrl: NavController, db: AngularFirestore, popoverCtrl: PopoverController, public navParams: NavParams, private camera : Camera, private alertCtrl : AlertController, private auth: AuthService) {
-    this.itemsCollection = db.collection<Items>('ironman'); //ref()
+    this.itemsCollection = db.collection<Items>('ironman');
     this.items=this.itemsCollection.snapshotChanges().map(actions => {
       return actions.map(a => {
         const data = a.payload.doc.data() as Items;
@@ -46,12 +45,12 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MapPage');
+    console.log('ionViewDidLoad HomePage');
   }
 
   deletePhoto(index) {
     let confirm = this.alertCtrl.create({
-      title: 'Etes-vous sur de vouloir supprimer cette photo ???? T SUR ??',
+      title: 'Etes-vous sur de vouloir supprimer cette photo ?',
       message: '',
       buttons: [
         {

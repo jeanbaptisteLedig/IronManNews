@@ -45,8 +45,7 @@ export class AuthService {
     }
 
     signUp(credentials) {
-        return this.afAuth.auth.createUserWithEmailAndPassword(credentials.email,
-            credentials.password);
+        return this.afAuth.auth.createUserWithEmailAndPassword(credentials.email, credentials.password);
     }
 
     get authenticated(): boolean {
@@ -58,6 +57,7 @@ export class AuthService {
     }
 
     signOut(): Promise<void> {
+        console.log("signout function");
         return this.afAuth.auth.signOut();
     }
 }

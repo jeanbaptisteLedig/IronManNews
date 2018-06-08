@@ -12,8 +12,6 @@
       <div ngxErrors="email" #emailErrors="ngxErrors">
         <div [ngxError]="['email', 'required']" [when]="['touched']">It should be a
           valid email</div>
-        66
-
       </div>
       <ion-item [ngClass]="{ invalid: passwordErrors.hasError('*', ['touched']) }">
         <ion-input type="password" placeholder="Password"
