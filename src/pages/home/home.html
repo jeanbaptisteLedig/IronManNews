@@ -31,9 +31,20 @@
   </ion-card>
 
   <h2>Partagez vos meilleurs souvenir avec IronMan ! <ion-icon name="camera"></ion-icon></h2>
-  <button ion-button full (click)="takePhoto()" >
-    <ion-icon name="camera"></ion-icon>&nbsp; Prendre une photo
-  </button>
+  <ion-item>
+    <ion-row>
+      <ion-col width-50>
+        <button ion-button color="danger" type="button" full round large (click)="takePhoto()">
+          <ion-icon name="md-camera"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col width-50>
+        <button ion-button color="secondary" type="button" full round large (click)="selectPhoto()">
+          <ion-icon name="md-image"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-item>
 
   <ion-grid>
     <ion-row>
@@ -45,18 +56,4 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
-  <ion-list col-6 *ngFor="let photo of photos; let id = index">
-    <ion-item-sliding>
-      <ion-item>
-        <ion-card class="block">
-          <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
-          <img [src]="photo" *ngIf="photo" />
-        </ion-card>
-      </ion-item>
-      <ion-item-options side="right">
-        <button ion-button color="danger" (click)="deletePhoto(id)">Delete</button>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
 </ion-content>

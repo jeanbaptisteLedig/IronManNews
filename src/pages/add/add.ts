@@ -38,7 +38,7 @@ export class AddPage {
                     text: "Oui",
                     handler: () => {
                         console.log("OK");
-                        this.provider.add(city,country,date,description,lat,long,name,type,url,url_image)
+                        this.provider.addEvent(city,country,date,description,lat,long,name,type,url,url_image)
                         // this.navCtrl.push(HomePage)
                         this.view.dismiss()
                     }

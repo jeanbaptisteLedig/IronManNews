@@ -8,6 +8,8 @@ import { DetailsPage } from './../details/details';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AuthService } from '../../services/auth.service';
 import { AddPage } from '../add/add';
+import firebase from 'firebase';
+import {LoginPage} from "../login/login";
 
 interface Items {
 
@@ -19,8 +21,13 @@ interface Items {
 })
 
 export class HomePage {
-  public photos : any;
   public base64Image : string;
+
+  public myPhotosRef: any;
+  public myPhoto: any;
+  public myPhotoURL: any;
+
+  isOnline: Boolean = false;
 
   itemsCollection: AngularFirestoreCollection<Items>;
   items: Observable<Items[]>;
@@ -33,7 +40,8 @@ export class HomePage {
         const id = a.payload.doc.id;
         return { id, ...data };
       })
-    })
+    });
+    this.UserIsOnline();
   }
 
   itemSelected(item){
@@ -42,14 +50,13 @@ export class HomePage {
   }
 
   ngOnInit() {
-    this.photos = [];
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
   }
 
-  deletePhoto(index) {
+  /*deletePhoto(index) {
     let confirm = this.alertCtrl.create({
       title: 'Etes-vous sur de vouloir supprimer cette photo ?',
       message: '',
@@ -69,34 +76,65 @@ export class HomePage {
       ]
     });
     confirm.present();
-  }
+  }*/
 
-  takePhoto() {
-    const options : CameraOptions = {
-      quality: 50, // picture quality
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    }
-    this.camera.getPicture(options) .then((imageData) => {
-      this.base64Image = "data:image/jpeg;base64," + imageData;
-      this.photos.push(this.base64Image);
-      this.photos.reverse();
-    }, (err) => {
-      console.log(err);
-    });
-  }
-
-    login() {
-        //this.menu.close();
-        this.auth.signOut();
-        //this.nav.setRoot(LoginPage);
+    takePhoto() {
+        this.camera.getPicture({
+            quality: 100,
+            destinationType: this.camera.DestinationType.DATA_URL,
+            sourceType: this.camera.PictureSourceType.CAMERA,
+            encodingType: this.camera.EncodingType.PNG,
+            saveToPhotoAlbum: true
+        }).then(imageData => {
+            this.myPhoto = imageData;
+            this.uploadPhoto();
+        }, error => {
+            console.log("ERROR -> " + JSON.stringify(error));
+        });
     }
 
-    logout() {
-        //this.menu.close();
-        this.auth.signOut();
-        //this.nav.setRoot(HomePage);
+    selectPhoto(): void {
+        this.camera.getPicture({
+            sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+            destinationType: this.camera.DestinationType.DATA_URL,
+            quality: 100,
+            encodingType: this.camera.EncodingType.PNG,
+        }).then(imageData => {
+            this.myPhoto = imageData;
+            this.uploadPhoto();
+        }, error => {
+            console.log("ERROR -> " + JSON.stringify(error));
+        });
+    }
+
+    private uploadPhoto(): void {
+        this.myPhotosRef.child(this.generateUUID()).child('myPhoto.png')
+            .putString(this.myPhoto, 'base64', { contentType: 'image/png' })
+            .then((savedPicture) => {
+                this.myPhotoURL = savedPicture.downloadURL;
+            });
+    }
+
+    private generateUUID(): any {
+        var d = new Date().getTime();
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx'.replace(/[xy]/g, function (c) {
+            var r = (d + Math.random() * 16) % 16 | 0;
+            d = Math.floor(d / 16);
+            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+        return uuid;
+    }
+
+    UserIsOnline() {
+        if (firebase.auth().currentUser != null) {
+            this.isOnline = true
+        } else {
+            this.isOnline = false
+        }
+    }
+
+    goToLogin() {
+        this.navCtrl.push(LoginPage)
     }
 
     addEvent() {

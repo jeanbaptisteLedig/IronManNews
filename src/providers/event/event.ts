@@ -29,10 +29,10 @@ export class EventProvider {
         this.itemsCollection.doc(id).delete();
     }
 
-    add(city,country,date,description,lat,long,name,type,url,url_image){
+    addEvent(city,country,date,description,lat,long,name,type,url,url_image){
         this.itemsCollection.doc(Date.now().toString()).set({
             city: city,
-            coutry: country,
+            country: country,
             date: date,
             description: description,
             lat: lat,
@@ -44,5 +44,22 @@ export class EventProvider {
         })
             .then(success => console.log(success))
             .catch(err => console.log(err))
+    }
+
+    updateEvent(id,city,country,date,description,lat,long,name,type,url,url_image){
+      this.itemsCollection.doc(id).update({
+          city: city,
+          country: country,
+          date: date,
+          description: description,
+          lat: lat,
+          long: long,
+          name: name,
+          type: type,
+          url: url,
+          url_image: url_image
+      })
+          .then(success => console.log(success))
+          .catch(err => console.log(err))
     }
 }

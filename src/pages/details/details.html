@@ -1,8 +1,4 @@
 <ion-content padding>
-  <button ion-button full outline ion-button color="danger" ion-button small full icon-left (click)="deleteEvent()">
-    <ion-icon name="trash"></ion-icon>
-    Supprimer l'évènement
-  </button>
   <ion-grid>
     <ion-row>
       <ion-col col-4>
@@ -20,10 +16,25 @@
     <ion-row>
       <ion-col>
         <p style="text-align: justify; ">{{item.description}}</p><br>
-        Plus d'information sur <a href="{{item.url}}">IronMan {{item.city}}</a>
+        Plus d'information sur <a href="{{item.url}}">{{item.name}}</a>
       </ion-col>
     </ion-row>
   </ion-grid>
 
   <div #map id="map"></div>
+
+  <button ion-button full outline ion-button color="secondary" ion-button small full icon-left (click)="updateEvent(item)">
+    <ion-icon name="trash"></ion-icon>
+    Modifier l'évènement
+  </button>
+  <button ion-button full outline ion-button color="danger" ion-button small full icon-left (click)="deleteEvent()">
+    <ion-icon name="trash"></ion-icon>
+    Supprimer l'évènement
+  </button>
+  <ng-template #elsetag>
+    <button ion-button color="danger" full icon-left ng-show="!isOnline" (click)="goToLogin()">
+      <ion-icon name="log-in"></ion-icon>
+      Vous devez être connecté pour supprimer
+    </button>
+  </ng-template>
 </ion-content>

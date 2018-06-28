@@ -2,6 +2,9 @@ import {Component, ElementRef, ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ViewController } from 'ionic-angular';
 import {Geolocation} from "@ionic-native/geolocation";
 import { EventProvider } from "../../providers/event/event"
+import { LoginPage } from "../../pages/login/login"
+import { UpdatePage } from "../../pages/update/update"
+import firebase from "firebase"
 
 /**
  * Generated class for the DetailsPage page.
@@ -17,42 +20,24 @@ declare var google;
   templateUrl: 'details.html',
 })
 export class DetailsPage {
-   item:string;
+    item:string;
 
     id:String
-    city: String
-    country: String
-    date: String
-    description: String
-    lat: String
-    long: String
-    name: String
-    type: String
-    url: String
-    url_image: String
 
-   @ViewChild('map') mapContainer: ElementRef;
-   map: any;
+    @ViewChild('map') mapContainer: ElementRef;
+    map: any;
+    isOnline: Boolean = false;
 
   constructor(public navCtrl: NavController, public view:ViewController, public navParams: NavParams, public geolocation: Geolocation, private alertCtrl: AlertController, public eventProvider: EventProvider) {
     let item = this.navParams.get('item');
     console.log("Page transfere : "+ item.name)
     this.item = item;
-    this.id = String(item.id)
-    this.city = item.city
-    this.country = item.country
-    this.date = item.date
-    this.description = item.description
-    this.lat = item.lat
-    this.long = item.long
-    this.name = item.name
-    this.url_image = item.url_image
-
+    this.UserIsOnline()
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DetailsPage');
-      this.displayGoogleMap(this.item);
+        console.log('ionViewDidLoad DetailsPage');
+        this.displayGoogleMap(this.item);
   }
 
     displayGoogleMap(item) {
@@ -105,11 +90,27 @@ export class DetailsPage {
                     handler: () => {
                         this.eventProvider.deleteEvent(this.id)
                         this.view.dismiss()
-                        // this.navCtrl.push(HomePage)
                     }
                 }
             ]
         });
         confirm.present();
+    }
+
+    updateEvent(item){
+        console.log("click"+item.get)
+        this.navCtrl.push(UpdatePage,{item:item});
+    }
+
+    UserIsOnline() {
+        if (firebase.auth().currentUser != null) {
+            this.isOnline = true
+        } else {
+            this.isOnline = false
+        }
+    }
+
+    goToLogin() {
+        this.navCtrl.push(LoginPage)
     }
 }
