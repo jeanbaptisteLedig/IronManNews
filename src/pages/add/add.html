@@ -1,0 +1,59 @@
+<!--
+  Generated template for the AddPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Ajouter un évènement</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+
+<ion-content padding>
+  <ion-item>
+    <ion-label color="primary" floating>Ville :</ion-label>
+    <ion-input [(ngModel)]="city"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary" floating>Pays :</ion-label>
+    <ion-input [(ngModel)]="country"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary" floating>Date :</ion-label>
+    <ion-datetime displayFormat="DD MMMM YYYY à HH:mm:ss TZD" [(ngModel)]="date"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary" floating>Description :</ion-label>
+    <ion-input [(ngModel)]="description"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary" floating>Latitude :</ion-label>
+    <ion-input [(ngModel)]="lat"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary" floating>Longitude :</ion-label>
+    <ion-input [(ngModel)]="long"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary" floating>Nom de l'évènement :</ion-label>
+    <ion-input [(ngModel)]="name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary" floating>Type :</ion-label>
+    <ion-input [(ngModel)]="type"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary" floating>Lien vers le site de l'évènement :</ion-label>
+    <ion-input [(ngModel)]="url"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary" floating>Joindre une url d'image :</ion-label>
+    <ion-input [(ngModel)]="url_image"></ion-input>
+  </ion-item>
+  <button ion-button round class = "button button-block" (click)="addEvent(city,country,date,description,lat,long,name,type,url,url_image)">Valider</button>
+</ion-content>

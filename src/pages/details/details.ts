@@ -1,6 +1,7 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ViewController } from 'ionic-angular';
 import {Geolocation} from "@ionic-native/geolocation";
+import { EventProvider } from "../../providers/event/event"
 
 /**
  * Generated class for the DetailsPage page.
@@ -18,13 +19,35 @@ declare var google;
 export class DetailsPage {
    item:string;
 
+    id:String
+    city: String
+    country: String
+    date: String
+    description: String
+    lat: String
+    long: String
+    name: String
+    type: String
+    url: String
+    url_image: String
+
    @ViewChild('map') mapContainer: ElementRef;
    map: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, public view:ViewController, public navParams: NavParams, public geolocation: Geolocation, private alertCtrl: AlertController, public eventProvider: EventProvider) {
     let item = this.navParams.get('item');
     console.log("Page transfere : "+ item.name)
     this.item = item;
+    this.id = String(item.id)
+    this.city = item.city
+    this.country = item.country
+    this.date = item.date
+    this.description = item.description
+    this.lat = item.lat
+    this.long = item.long
+    this.name = item.name
+    this.url_image = item.url_image
+
   }
 
   ionViewDidLoad() {
@@ -64,5 +87,29 @@ export class DetailsPage {
         });
         this.map = new google.maps.Map(this.mapContainer.nativeElement, mapOptions);
         itemMarker.setMap(this.map);
+    }
+
+    deleteEvent() {
+        let confirm = this.alertCtrl.create({
+            title: "Etes vous sûr de vouloir supprimer cet évènement ?",
+            message: "",
+            buttons: [
+                {
+                    text: "Non",
+                    handler: () => {
+                        console.log("Pas OK");
+                    }
+                },
+                {
+                    text: "Oui",
+                    handler: () => {
+                        this.eventProvider.deleteEvent(this.id)
+                        this.view.dismiss()
+                        // this.navCtrl.push(HomePage)
+                    }
+                }
+            ]
+        });
+        confirm.present();
     }
 }

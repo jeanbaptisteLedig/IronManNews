@@ -7,6 +7,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { DetailsPage } from './../details/details';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AuthService } from '../../services/auth.service';
+import { AddPage } from '../add/add';
 
 interface Items {
 
@@ -96,5 +97,9 @@ export class HomePage {
         //this.menu.close();
         this.auth.signOut();
         //this.nav.setRoot(HomePage);
+    }
+
+    addEvent() {
+        this.navCtrl.push(AddPage);
     }
 }

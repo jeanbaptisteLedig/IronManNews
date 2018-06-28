@@ -10,6 +10,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { DetailsPage } from '../pages/details/details';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
+import { AddPage } from '../pages/add/add';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -22,6 +23,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
 import {Camera} from '@ionic-native/camera';
 import { AuthService } from '../services/auth.service';
+import { EventProvider } from '../providers/event/event';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDZTbdxTTcdcTMqqK3Kd5juQVEKe-ctS8U",
@@ -41,7 +43,8 @@ export const firebaseConfig = {
     DetailsPage,
     TabsPage,
     LoginPage,
-    SignupPage
+    SignupPage,
+    AddPage
   ],
   imports: [
     BrowserModule,
@@ -60,7 +63,8 @@ export const firebaseConfig = {
     DetailsPage,
     TabsPage,
     LoginPage,
-    SignupPage
+    SignupPage,
+    AddPage
   ],
   providers: [
     StatusBar,
@@ -68,7 +72,8 @@ export const firebaseConfig = {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Provider,
     Geolocation,
-    AuthService
+    AuthService,
+    EventProvider
   ]
 })
 export class AppModule {}
