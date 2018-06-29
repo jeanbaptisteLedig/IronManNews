@@ -21,18 +21,21 @@ interface Items {
 })
 
 export class HomePage {
-  public base64Image : string;
+    assetCollection;
 
-  public myPhotosRef: any;
-  public myPhoto: any;
-  public myPhotoURL: any;
+    public base64Image : string;
 
-  isOnline: Boolean = false;
+    public myPhotosRef: any;
+    public myPhoto: any;
+    public myPhotoURL: any;
 
-  itemsCollection: AngularFirestoreCollection<Items>;
-  items: Observable<Items[]>;
+    isOnline: Boolean = false;
 
-  constructor(public navCtrl: NavController, db: AngularFirestore, popoverCtrl: PopoverController, public navParams: NavParams, private camera : Camera, private alertCtrl : AlertController, private auth: AuthService) {
+    itemsCollection: AngularFirestoreCollection<Items>;
+    items: Observable<Items[]>;
+
+    constructor(public navCtrl: NavController, db: AngularFirestore, popoverCtrl: PopoverController, public navParams: NavParams, private camera : Camera, private alertCtrl : AlertController, private auth: AuthService) {
+    this.myPhotosRef = firebase.storage().ref('/PhotosUsers/');
     this.itemsCollection = db.collection<Items>('ironman');
     this.items=this.itemsCollection.snapshotChanges().map(actions => {
       return actions.map(a => {
@@ -42,41 +45,20 @@ export class HomePage {
       })
     });
     this.UserIsOnline();
-  }
+    }
 
-  itemSelected(item){
-    console.log("click"+item.get)
-    this.navCtrl.push(DetailsPage,{item:item});
-  }
+    itemSelected(item){
+        console.log("click"+item.get)
+        this.navCtrl.push(DetailsPage,{item:item});
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+      this.loadPictures();
+    }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
-  }
-
-  /*deletePhoto(index) {
-    let confirm = this.alertCtrl.create({
-      title: 'Etes-vous sur de vouloir supprimer cette photo ?',
-      message: '',
-      buttons: [
-        {
-          text: 'Non',
-          handler: () => {
-            console.log('Disagree clicked');
-          }
-        }, {
-          text: 'Oui',
-          handler: () => {
-            console.log('Agree clicked');
-            this.photos.splice(index, 1);
-          }
-        }
-      ]
-    });
-    confirm.present();
-  }*/
+    ionViewDidLoad() {
+        console.log('ionViewDidLoad HomePage');
+    }
 
     takePhoto() {
         this.camera.getPicture({
@@ -113,6 +95,19 @@ export class HomePage {
             .then((savedPicture) => {
                 this.myPhotoURL = savedPicture.downloadURL;
             });
+        let confirm = this.alertCtrl.create({
+            title: 'Votre photo a bien été uplodé dans Firebase',
+            message: '',
+            buttons: [
+                    {
+                    text: 'Ok',
+                    handler: () => {
+                        console.log('Agree clicked');
+                    }
+                }
+            ]
+        });
+        confirm.present();
     }
 
     private generateUUID(): any {
@@ -123,6 +118,19 @@ export class HomePage {
             return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
         });
         return uuid;
+    }
+
+    loadPictures() {
+/*        this.myPhotosRef.once('value', (_snapshot: any) => {
+            var result = [];
+
+            _snapshot.forEach((_childSnapshot) => {
+                var element = _childSnapshot.val();
+                element.id = _childSnapshot.key;
+                result.push(element);
+            });
+            this.assetCollection = result;
+        });*/
     }
 
     UserIsOnline() {

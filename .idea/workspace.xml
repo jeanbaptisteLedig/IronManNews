@@ -3,24 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="1890f06c-7407-4003-b14a-860676a936f8" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.sourcemaps/0.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/.sourcemaps/0.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.sourcemaps/main.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/.sourcemaps/main.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/add/add.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/add/add.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/details/details.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/details/details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/details/details.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/details/details.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/home/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/home/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/home/home.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/home/home.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/providers/event/event.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/providers/event/event.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/0.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/build/0.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/0.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/www/build/0.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/3.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/3.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/4.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/4.js.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/www/build/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/build/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/build/main.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/www/build/main.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/vendor.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/build/vendor.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/build/vendor.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/www/build/vendor.js.map" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -44,8 +31,8 @@
       <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/home/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="620">
-              <caret line="56" column="14" lean-forward="true" selection-start-line="56" selection-start-column="14" selection-end-line="56" selection-end-column="14" />
+            <state relative-caret-position="618">
+              <caret line="53" column="30" selection-start-line="53" selection-start-column="30" selection-end-line="53" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -53,8 +40,8 @@
       <file leaf-file-name="home.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/home/home.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="975">
-              <caret line="65" column="13" selection-start-line="65" selection-start-column="13" selection-end-line="65" selection-end-column="13" />
+            <state relative-caret-position="1277">
+              <caret line="132" column="13" selection-start-line="132" selection-start-column="13" selection-end-line="132" selection-end-column="13" />
               <folding>
                 <element signature="e#0#65#0" expanded="true" />
               </folding>
@@ -607,12 +594,12 @@
       <option name="presentableId" value="Default" />
       <updated>1528307561712</updated>
       <workItem from="1528307569899" duration="20949000" />
-      <workItem from="1530114727923" duration="11708000" />
+      <workItem from="1530114727923" duration="16659000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32657000" />
+    <option name="totallyTimeSpent" value="37608000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -778,13 +765,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/home/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="620">
-          <caret line="56" column="14" lean-forward="true" selection-start-line="56" selection-start-column="14" selection-end-line="56" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/update/update.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -812,10 +792,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/home/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="618">
+          <caret line="53" column="30" selection-start-line="53" selection-start-column="30" selection-end-line="53" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/home/home.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="975">
-          <caret line="65" column="13" selection-start-line="65" selection-start-column="13" selection-end-line="65" selection-end-column="13" />
+        <state relative-caret-position="1277">
+          <caret line="132" column="13" selection-start-line="132" selection-start-column="13" selection-end-line="132" selection-end-column="13" />
           <folding>
             <element signature="e#0#65#0" expanded="true" />
           </folding>

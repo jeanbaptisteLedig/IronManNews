@@ -1073,6 +1073,7 @@ var HomePage = /** @class */ (function () {
         this.alertCtrl = alertCtrl;
         this.auth = auth;
         this.isOnline = false;
+        this.myPhotosRef = __WEBPACK_IMPORTED_MODULE_8_firebase___default.a.storage().ref('/PhotosUsers/');
         this.itemsCollection = db.collection('ironman');
         this.items = this.itemsCollection.snapshotChanges().map(function (actions) {
             return actions.map(function (a) {
@@ -1088,31 +1089,11 @@ var HomePage = /** @class */ (function () {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__details_details__["a" /* DetailsPage */], { item: item });
     };
     HomePage.prototype.ngOnInit = function () {
+        this.loadPictures();
     };
     HomePage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad HomePage');
     };
-    /*deletePhoto(index) {
-      let confirm = this.alertCtrl.create({
-        title: 'Etes-vous sur de vouloir supprimer cette photo ?',
-        message: '',
-        buttons: [
-          {
-            text: 'Non',
-            handler: () => {
-              console.log('Disagree clicked');
-            }
-          }, {
-            text: 'Oui',
-            handler: () => {
-              console.log('Agree clicked');
-              this.photos.splice(index, 1);
-            }
-          }
-        ]
-      });
-      confirm.present();
-    }*/
     HomePage.prototype.takePhoto = function () {
         var _this = this;
         this.camera.getPicture({
@@ -1149,6 +1130,19 @@ var HomePage = /** @class */ (function () {
             .then(function (savedPicture) {
             _this.myPhotoURL = savedPicture.downloadURL;
         });
+        var confirm = this.alertCtrl.create({
+            title: 'Votre photo a bien été uplodé dans Firebase',
+            message: '',
+            buttons: [
+                {
+                    text: 'Ok',
+                    handler: function () {
+                        console.log('Agree clicked');
+                    }
+                }
+            ]
+        });
+        confirm.present();
     };
     HomePage.prototype.generateUUID = function () {
         var d = new Date().getTime();
@@ -1158,6 +1152,18 @@ var HomePage = /** @class */ (function () {
             return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
         });
         return uuid;
+    };
+    HomePage.prototype.loadPictures = function () {
+        /*        this.myPhotosRef.once('value', (_snapshot: any) => {
+                    var result = [];
+        
+                    _snapshot.forEach((_childSnapshot) => {
+                        var element = _childSnapshot.val();
+                        element.id = _childSnapshot.key;
+                        result.push(element);
+                    });
+                    this.assetCollection = result;
+                });*/
     };
     HomePage.prototype.UserIsOnline = function () {
         if (__WEBPACK_IMPORTED_MODULE_8_firebase___default.a.auth().currentUser != null) {
@@ -1175,7 +1181,7 @@ var HomePage = /** @class */ (function () {
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"/Cours - Projet/Ionic/IronManNews/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title *ngIf="auth.getEmail()">\n      <h1>IronMan News</h1>\n    </ion-title>\n    <ion-buttons end [hidden]="isOnline">\n      <button ion-button icon-only (click)="goToLogin()">\n        <ion-icon name="log-in"></ion-icon> Login\n      </button>\n    </ion-buttons>\n\n    <ion-buttons end [hidden]="!isOnline">\n      <button ion-button icon-only (click)="logout()">\n        <ion-icon name="log-out"></ion-icon> Logout\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding class="card-background-page">\n  <ion-list ion-item *ngFor="let item of items | async" (click)="itemSelected(item)">\n    {{ item.city }}\n  </ion-list>\n\n  <ion-card>\n    <ion-card-content (click)="addEvent()">\n      <h1 text-center>\n        <strong>Ajouter une course</strong>\n      </h1>\n    </ion-card-content>\n  </ion-card>\n\n  <h2>Partagez vos meilleurs souvenir avec IronMan ! <ion-icon name="camera"></ion-icon></h2>\n  <ion-item>\n    <ion-row>\n      <ion-col width-50>\n        <button ion-button color="danger" type="button" full round large (click)="takePhoto()">\n          <ion-icon name="md-camera"></ion-icon>\n        </button>\n      </ion-col>\n      <ion-col width-50>\n        <button ion-button color="secondary" type="button" full round large (click)="selectPhoto()">\n          <ion-icon name="md-image"></ion-icon>\n        </button>\n      </ion-col>\n    </ion-row>\n  </ion-item>\n\n  <ion-grid>\n    <ion-row>\n      <ion-col col-6 *ngFor="let photo of photos; let id = index">\n        <ion-card class="block">\n          <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>\n          <img [src]="photo" *ngIf="photo" />\n        </ion-card>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>\n'/*ion-inline-end:"/Cours - Projet/Ionic/IronManNews/src/pages/home/home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"/Cours - Projet/Ionic/IronManNews/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title *ngIf="auth.getEmail()">\n      <h1>IronMan News</h1>\n    </ion-title>\n    <ion-buttons end [hidden]="isOnline">\n      <button ion-button icon-only (click)="goToLogin()">\n        <ion-icon name="log-in"></ion-icon> Login\n      </button>\n    </ion-buttons>\n\n    <ion-buttons end [hidden]="!isOnline">\n      <button ion-button icon-only (click)="logout()">\n        <ion-icon name="log-out"></ion-icon> Logout\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding class="card-background-page">\n  <ion-list ion-item *ngFor="let item of items | async" (click)="itemSelected(item)">\n    {{ item.city }}\n  </ion-list>\n\n  <ion-card>\n    <ion-card-content (click)="addEvent()">\n      <h1 text-center>\n        <strong>Ajouter une course</strong>\n      </h1>\n    </ion-card-content>\n  </ion-card>\n\n  <h2>Partagez vos meilleurs souvenir avec IronMan ! <ion-icon name="camera"></ion-icon></h2>\n  <ion-item>\n    <ion-row>\n      <ion-col width-50>\n        <button ion-button color="danger" type="button" full round large (click)="takePhoto()">\n          <ion-icon name="md-camera"></ion-icon>\n        </button>\n      </ion-col>\n      <ion-col width-50>\n        <button ion-button color="secondary" type="button" full round large (click)="selectPhoto()">\n          <ion-icon name="md-image"></ion-icon>\n        </button>\n      </ion-col>\n    </ion-row>\n  </ion-item>\n\n  <ion-grid>\n    <ion-row>\n      <ion-col col-6 *ngFor="let item of assetCollection; let id = index">\n        <ion-card class="block">\n          <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>\n          <img [src]="item.URL" *ngIf="photo" />\n        </ion-card>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n</ion-content>\n'/*ion-inline-end:"/Cours - Projet/Ionic/IronManNews/src/pages/home/home.html"*/
         }),
         __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_firestore__["a" /* AngularFirestore */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_firestore__["a" /* AngularFirestore */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* PopoverController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* PopoverController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_native_camera__["a" /* Camera */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_native_camera__["a" /* Camera */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_6__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__services_auth_service__["a" /* AuthService */]) === "function" && _g || Object])
     ], HomePage);
